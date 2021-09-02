@@ -8,7 +8,6 @@ permalink: /
 
 This is a starter template for a docsy jekyll theme.
 
-![assets/img/docsy-jekyll.png](assets/img/docsy-jekyll.png)
 
 ## Purpose
 
