@@ -9,16 +9,15 @@ permalink: /
 This is a starter template for a docsy jekyll theme.
 
 
-## Purpose
+## 1.	Gerar a oferta (POST /prospects – Short Form)
 
-GitHub pages uses Jekyll natively, so when I make documentation, I typically
-look for Jekyll templates. Why? Using Jekyll means that I can use markdown,
-and allow for users to easily contribute, and build automatically just by
-way of pushing to a master branch (or general GitHub pages).
-I found Docsy, a beautiful Hugo template, but it requires hugo with GoLang
-which doesn't render natively on GitHub pages. For this reason, I've spent
-some time creating a custom Jekyll template that is (almost) as beautiful,
-and includes all the features that I might want.
+<p>Nessa etapa é enviado uma requisição para gerar uma oferta. As verificações feitas são análises de crédito e variam dependendo da política especificada para cada produto/serviço. No retorno da requisição, no header, terá um campo chamado Location que constará o id da oferta gerada. </p>
+<p>Dados obrigatórios: CPF, nome, data de nascimento, CEP, celular, canal, user registration (número da matricula do usuário), metadados (dados do navegador/app para verificação). </p>
+
+<b>Endpoints: </b>
+
++ Homologação: https://apihlg-portoseg.sensedia.com/dev/proposal/v1/prospects
++ Produção: https://api-portoseg.sensedia.com/proposal/v1/prospects
 
 ## Features
 
