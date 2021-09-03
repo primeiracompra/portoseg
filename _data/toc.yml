@@ -1,20 +1,13 @@
-- title: Documentation
+- title: Documentação
   url: docs
   links:
-    - title: "Getting Started"
-      url: "docs/getting-started"
-      children:
-        - title: Features
-          url: "docs/getting-started#getting-started"
-        - title: Development
-          url: "docs/getting-started#development"
-        - title: Customization
-          url: "docs/getting-started#customization"
+    - title: "Fluxo Primeira Compra"
+      url: "pages/index"
     - title: "About"
       url: "about"
     - title: "News"
       url: "news"
-- title: "Extras"
+- title: "Swagger"
   url: "docs/extras"
   links:
     - title: Quizzes
