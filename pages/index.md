@@ -7,7 +7,7 @@ permalink: /
 # Primeira Compra - PortoSeg
 
 Nesta página será explicado o fluxo de primeira compra, abaixo imagem do fluxo e nos itens a seguir veremos os detalhes de cada passo:
-![Fluxo primeira compra](./assets/img/porto-seguro.jpg)
+![Fluxo primeira compra](./assets/img/FlowPrimeiraCompra.jpg)
 
 ## 1.	Gerar a oferta (POST /prospects – Short Form)
 
