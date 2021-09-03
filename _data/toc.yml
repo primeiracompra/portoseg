@@ -2,7 +2,7 @@
   url: docs
   links:
     - title: "Fluxo Primeira Compra"
-      url: "pages/index.md"
+      url: "/"
 - title: "Swagger"
   url: "docs/extras"
   links:
