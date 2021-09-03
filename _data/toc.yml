@@ -2,7 +2,7 @@
   url: docs
   links:
     - title: "Fluxo Primeira Compra"
-      url: "pages/index"
+      url: "pages/index.md"
     - title: "About"
       url: "about"
     - title: "News"
