@@ -3,14 +3,8 @@
   links:
     - title: "Fluxo Primeira Compra"
       url: "pages/index.md"
-    - title: "About"
-      url: "about"
-    - title: "News"
-      url: "news"
 - title: "Swagger"
   url: "docs/extras"
   links:
-    - title: Quizzes
+    - title: Proposals
       url: "docs/extras/example-quiz"
-    - title: Tags Page
-      url: "tags"
