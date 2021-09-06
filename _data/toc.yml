@@ -1,10 +1,8 @@
 - title: Documentação
-  url: docs
   links:
     - title: "Fluxo Primeira Compra"
-      url: "/"
+      url: ""
 - title: "Swagger"
-  url: "docs/extras"
   links:
     - title: Proposals
-      url: "pages/swagger.html"
+      url: "swagger"
