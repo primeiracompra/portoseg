@@ -1,0 +1,1703 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Esta API é responsável pelo gerenciamento do fluxo de entrada de propostas.",
+    "version": "1.0.0",
+    "title": "Proposals API",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "portoseg.sensedia.com.br",
+  "basePath": "/proposal/v1/",
+  "tags": [
+    {
+      "name": "Prospect",
+      "description": "Domínio relacionado a oferta."
+    },
+    {
+      "name": "Proposal",
+      "description": "Domínio relacionado a proposta."
+    },
+    {
+      "name": "Recommendation",
+      "description": "Domínio relacionado a recomendação."
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/prospects": {
+      "post": {
+        "tags": [
+          "Prospect"
+        ],
+        "summary": "Adicionar prospect.",
+        "description": "Recurso responsável por adicionar um prospect e validar as ofertas do mesmo.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "prospect",
+            "in": "body",
+            "description": "Prospect.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Prospect"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "headers": {
+              "location": {
+                "type": "string",
+                "description": "Location to created resource. Ex: http://portoseg.sensedia.com.br/proposal/v1/prospects/{id}"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Prospect"
+        ],
+        "summary": "Recuperar prospects.",
+        "description": "Recurso responsável por retornar os prospects.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "document",
+            "in": "query",
+            "description": "cpf do cliente.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_limit",
+            "in": "query",
+            "description": "tamanho da página (default 20).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_offset",
+            "in": "query",
+            "description": "número da página (default 0).",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProspectResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/prospects/{id}": {
+      "get": {
+        "tags": [
+          "Prospect"
+        ],
+        "summary": "Recuperar prospect.",
+        "description": "Recurso responsável por retornar um prospect.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "identificador do cliente.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "$ref": "#/definitions/ProspectResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/prospects/{id}/offers": {
+      "get": {
+        "tags": [
+          "Prospect"
+        ],
+        "summary": "Recuperar oferta.",
+        "description": "Recurso responsável por retornar ofertas válidas de um prospect.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "identificador do cliente.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product_Details"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/proposals": {
+      "post": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Adicionar proposta",
+        "description": "Recurso responsável por adicionar uma proposta.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "proposal",
+            "in": "body",
+            "description": "Proposta.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Proposal"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "headers": {
+              "location": {
+                "type": "string",
+                "description": "Location to created resource. Ex: http://portoseg.sensedia.com.br/proposal/v1/proposals/{id}"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Recuperar todas as propostas cadastradas.",
+        "description": "Recurso responsável por retornar todas as propostas cadastradas.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "proposalStatus",
+            "in": "query",
+            "description": "Status da proposta.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "proposalNumber",
+            "in": "query",
+            "description": "Número da proposta.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "_limit",
+            "in": "query",
+            "description": "Quantidade de registros por página.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "_offset",
+            "in": "query",
+            "description": "Número da página.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Proposal_Status"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/proposals/{id}": {
+      "get": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Recuperar proposta.",
+        "description": "Recurso responsável por retornar a proposta e seus status",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador da proposta.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "$ref": "#/definitions/Proposal_Status"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Alterar dados de uma proposta",
+        "description": "Recurso responsável por Alterar dados de uma proposta",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador da proposta.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "proposal",
+            "in": "body",
+            "description": "Proposta.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Proposal"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created."
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/proposals/{id}/biometrics": {
+      "post": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Solicitar biometria.",
+        "description": "Solicita biometria.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador da proposta.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "biometry",
+            "in": "body",
+            "description": "biometry.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BiometryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "headers": {
+              "location": {
+                "type": "string",
+                "description": "Location to created resource. Ex: http://portoseg.sensedia.com.br/proposal/v1/proposals/{id}/biometrics/{biometricId}"
+              }
+            }
+          },
+          "302": {
+            "description": "Found.",
+            "headers": {
+              "location": {
+                "type": "string",
+                "description": "Location to resource. Ex: https://comercial.certiface.com.br/certifacetoken/facecaptchav2/token/3d871e55-acd8-408a-97f2-ba9f7ab383de"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/proposals/{id}/biometrics/{biometryId}": {
+      "get": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Recuperar resultado biometria.",
+        "description": "Solicita biometria.",
+        "consumes": [
+          "application/json",
+          "text/event-stream"
+        ],
+        "produces": [
+          "application/json",
+          "text/event-stream"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador da proposta.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "biometryId",
+            "in": "path",
+            "description": "Identificador da biometria.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "$ref": "#/definitions/BiometricStatus"
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/proposals/{id}/additionals": {
+      "post": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Incluir adicional.",
+        "description": "Solicita biometria.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador da proposta.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "adicional",
+            "in": "body",
+            "description": "biometry.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdditionalRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content."
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/proposals/{id}/details": {
+      "post": {
+        "tags": [
+          "Proposal"
+        ],
+        "summary": "Adicionar detalhes proposta",
+        "description": "Recurso responsável por adicionar detalhes de uma proposta.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "Identificador da proposta",
+            "required": true
+          },
+          {
+            "name": "proposal",
+            "in": "body",
+            "description": "Proposta.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Proposal_Details"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content."
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    },
+    "/recommendations": {
+      "post": {
+        "tags": [
+          "Recommendation"
+        ],
+        "summary": "Importação de arquivo",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Recomendação",
+            "in": "body",
+            "description": "Informação da recomendação.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RecommendationsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "headers": {
+              "location": {
+                "type": "string",
+                "description": "Location to created resource. Ex: http://portoseg.sensedia.com.br/proposal/v1/recommendations/{id}"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/_businessErrorMessage"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity.",
+            "schema": {
+              "$ref": "#/definitions/_businessErrorMessage"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        },
+        "security": [
+          {
+            "client_id": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "client_id": {
+      "type": "apiKey",
+      "name": "client_id",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "_businessErrorMessage": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code."
+        },
+        "description": {
+          "type": "string",
+          "description": "Error description."
+        }
+      }
+    },
+    "BiometryRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "SMS",
+            "REDIRECT"
+          ]
+        }
+      }
+    },
+    "Prospect": {
+      "type": "object",
+      "required": [
+        "channel_id",
+        "document",
+        "birth_date",
+        "email",
+        "postal_code",
+        "cell_phone",
+        "user_registration",
+        "metadata"
+      ],
+      "properties": {
+        "product_type": {
+          "type": "number",
+          "maxLength": 2,
+          "example": 1
+        },
+        "channel_id": {
+          "type": "number",
+          "maxLength": 2,
+          "example": 1
+        },
+        "campaign_id": {
+          "type": "number",
+          "maxLength": 2,
+          "example": 1
+        },
+        "susep_id": {
+          "type": "string",
+          "maxLength": 10,
+          "example": "123"
+        },
+        "user_registration": {
+          "type": "string",
+          "maxLength": 10,
+          "example": "123"
+        },
+        "invite_code": {
+          "type": "string",
+          "maxLength": 150,
+          "example": 1255477819
+        },
+        "document": {
+          "type": "string",
+          "maxLength": 11,
+          "example": "33333333333"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 30,
+          "example": "Martinez Souza",
+          "description": "prospect name"
+        },
+        "birth_date": {
+          "type": "string",
+          "example": "1991-04-01"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 40,
+          "example": "sensedia@sensedia.com"
+        },
+        "postal_code": {
+          "type": "string",
+          "maxLength": 5,
+          "example": "13468730"
+        },
+        "cell_phone_code": {
+          "type": "number",
+          "maxLength": 2,
+          "example": "19"
+        },
+        "cell_phone": {
+          "type": "number",
+          "maxLength": 9,
+          "example": "999999999"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProspectPermission"
+          }
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataTypeRequest"
+        }
+      }
+    },
+    "ProspectPermission": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Permission key"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "Permission value"
+        }
+      }
+    },
+    "MetadataTypeRequest": {
+      "type": "object",
+      "properties": {
+        "request_token_phone_id": {
+          "type": "string",
+          "maxLength": 1500,
+          "example": "36c47569-ad3b-4b4e-a76e-88debcca005b"
+        },
+        "request_token_email_id": {
+          "type": "string",
+          "maxLength": 1500,
+          "example": "36c47569-ad3b-4b4e-a76e-88debcca005b"
+        },
+        "device": {
+          "$ref": "#/definitions/DeviceRequest"
+        }
+      }
+    },
+    "DeviceRequest": {
+      "type": "object",
+      "properties": {
+        "jsc": {
+          "type": "string"
+        },
+        "ip_address": {
+          "type": "string",
+          "maxLength": 25,
+          "example": "192.168.1.1"
+        },
+        "server_time": {
+          "type": "string",
+          "maxLength": 35,
+          "description": "UTC time server"
+        },
+        "http_headers": {
+          "type": "array",
+          "maxLength": 1500,
+          "items": {
+            "$ref": "#/definitions/HttpHeaderType"
+          }
+        },
+        "user_identity_cookies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HttpCookieType"
+          }
+        },
+        "hdim": {
+          "$ref": "#/definitions/HdimRequest"
+        }
+      }
+    },
+    "HdimRequest": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "type": "string"
+        }
+      }
+    },
+    "HttpHeaderType": {
+      "type": "object",
+      "properties": {
+        "header_name": {
+          "type": "string"
+        },
+        "header_value": {
+          "type": "string"
+        }
+      }
+    },
+    "HttpCookieType": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductType": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "example": 206
+        },
+        "description": {
+          "type": "string",
+          "example": "CDC"
+        }
+      }
+    },
+    "AdditionalRequest": {
+      "type": "object",
+      "required": [
+        "name",
+        "relationship",
+        "document",
+        "gender",
+        "marital_status",
+        "birth_date"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "relationship": {
+          "type": "string",
+          "description": "Parentesco",
+          "enum": [
+            "CONJUGE",
+            "PAIS",
+            "IRMAO",
+            "FILHO",
+            "OUTROS"
+          ]
+        },
+        "document": {
+          "type": "string",
+          "example": 11111111111,
+          "description": "Documento do adicional",
+          "maxLength": 11
+        },
+        "gender": {
+          "type": "string",
+          "example": "M",
+          "description": "sexo do adicional"
+        },
+        "phone": {
+          "type": "string",
+          "example": 19995440498,
+          "maxLength": 11,
+          "description": "cellphone do adicional"
+        },
+        "email": {
+          "type": "string",
+          "example": "joao@portoseguro.com.br",
+          "maxLength": 60,
+          "description": "email do adicional"
+        },
+        "marital_status": {
+          "type": "string",
+          "enum": [
+            "CASADO",
+            "SOLTEIRO",
+            "VIUVO",
+            "OUTROS"
+          ]
+        },
+        "birth_date": {
+          "type": "string"
+        }
+      }
+    },
+    "Proposal": {
+      "type": "object",
+      "required": [
+        "prospect_id",
+        "name",
+        "mother_name",
+        "gender",
+        "address",
+        "address_number",
+        "neighborhood",
+        "city",
+        "state"
+      ],
+      "properties": {
+        "prospect_id": {
+          "type": "string",
+          "example": "abc13213"
+        },
+        "name": {
+          "type": "string",
+          "example": "Sensedia SA",
+          "maxLength": 30
+        },
+        "mother_name": {
+          "type": "string",
+          "example": "Sensedia's Mother Name",
+          "maxLength": 30
+        },
+        "father_name": {
+          "type": "string",
+          "example": "Sensedia's Father Name"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "M",
+            "F"
+          ]
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 11
+        },
+        "address_type": {
+          "type": "string",
+          "example": "Rua"
+        },
+        "address": {
+          "type": "string",
+          "example": "Rua Ricardo Benetton Martins",
+          "maxLength": 25
+        },
+        "address_number": {
+          "type": "number",
+          "example": 12345,
+          "maxLength": 5
+        },
+        "neighborhood": {
+          "type": "string",
+          "example": "Polo de Alta Tecnologia",
+          "maxLength": 20
+        },
+        "city": {
+          "type": "string",
+          "example": "Campinas",
+          "maxLength": 20
+        },
+        "state": {
+          "type": "string",
+          "example": "SP",
+          "maxLength": 20
+        },
+        "postal_code": {
+          "type": "string",
+          "example": 13013065,
+          "maxLength": 8
+        },
+        "complement": {
+          "type": "string",
+          "example": "Apto 100",
+          "maxLength": 10
+        },
+        "income": {
+          "type": "integer",
+          "format": "int64",
+          "example": 10000
+        },
+        "document_order": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "naturalness": {
+          "type": "string"
+        },
+        "state_naturalness": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string"
+        },
+        "issuing_agency": {
+          "type": "string"
+        },
+        "state_issuing_agency": {
+          "type": "string"
+        },
+        "overnight_postal_code": {
+          "type": "string"
+        },
+        "bonus": {
+          "type": "integer",
+          "example": 3
+        },
+        "class": {
+          "type": "string"
+        },
+        "insured_number": {
+          "type": "string"
+        },
+        "insure_origin": {
+          "type": "string"
+        },
+        "installments": {
+          "type": "string"
+        },
+        "is_value": {
+          "type": "number",
+          "format": "double",
+          "example": 10000.5
+        },
+        "prize": {
+          "type": "number",
+          "format": "double",
+          "example": 1000.5
+        },
+        "status": {
+          "type": "string"
+        },
+        "occupation": {
+          "type": "string",
+          "enum": [
+            "EMPRESARIO",
+            "ASSALARIADO",
+            "APOSENTADO_PENSIONISTA",
+            "AUTONOMO",
+            "OUTROS"
+          ]
+        }
+      }
+    },
+    "Product_Details": {
+      "type": "object",
+      "properties": {
+        "product_code": {
+          "type": "integer",
+          "example": 1
+        },
+        "credit_limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "maximum_limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "minimum_limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "logos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Logo"
+          }
+        }
+      }
+    },
+    "Logo": {
+      "type": "object",
+      "properties": {
+        "logo_code": {
+          "type": "number",
+          "example": 206
+        },
+        "logo_description": {
+          "type": "string",
+          "example": "International"
+        }
+      }
+    },
+    "Proposal_Details": {
+      "type": "object",
+      "properties": {
+        "product_code": {
+          "type": "number",
+          "example": 123
+        },
+        "selected_limit": {
+          "type": "number",
+          "format": "double",
+          "example": 10000
+        },
+        "selected_logo": {
+          "type": "number",
+          "example": 206
+        },
+        "expiration_day": {
+          "type": "number",
+          "example": 1
+        },
+        "insurance": {
+          "type": "boolean",
+          "example": true
+        },
+        "auto_debit": {
+          "type": "boolean",
+          "example": true
+        },
+        "loss_theft": {
+          "type": "boolean",
+          "example": true
+        },
+        "statement_option": {
+          "type": "string",
+          "example": "E"
+        },
+        "bank_debit": {
+          "type": "integer",
+          "example": 248
+        },
+        "agency": {
+          "type": "number",
+          "example": 2222
+        },
+        "account": {
+          "type": "number",
+          "example": 1111
+        },
+        "digit": {
+          "type": "string",
+          "example": "0"
+        },
+        "document": {
+          "type": "string"
+        }
+      }
+    },
+    "Proposal_Status": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "prospect_id": {
+          "type": "string",
+          "example": "abc13213"
+        },
+        "name": {
+          "type": "string",
+          "example": "Sensedia SA"
+        },
+        "mother_name": {
+          "type": "string",
+          "example": "Sensedia's Mother Name",
+          "maxLength": 30
+        },
+        "address": {
+          "type": "string",
+          "example": "Rua Ricardo Benetton Martins",
+          "maxLength": 25
+        },
+        "address_number": {
+          "type": "number",
+          "example": 12345,
+          "maxLength": 5
+        },
+        "neighborhood": {
+          "type": "string",
+          "example": "Polo de Alta Tecnologia",
+          "maxLength": 20
+        },
+        "city": {
+          "type": "string",
+          "example": "Campinas",
+          "maxLength": 20
+        },
+        "state": {
+          "type": "string",
+          "example": "SP",
+          "maxLength": 20
+        },
+        "postal_code": {
+          "type": "string",
+          "example": 13013065,
+          "maxLength": 8
+        },
+        "income": {
+          "type": "integer",
+          "format": "int64",
+          "example": 10000
+        },
+        "proposal_status": {
+          "type": "string",
+          "example": "APPROVED"
+        },
+        "gender": {
+          "type": "string",
+          "example": "M"
+        },
+        "occupation": {
+          "type": "string",
+          "example": "EMPRESARIO"
+        },
+        "proposal_number": {
+          "type": "string"
+        },
+        "marital_status": {
+          "type": "string"
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Status"
+          }
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "status_code": {
+          "type": "string",
+          "example": "APPROVED"
+        },
+        "status_description": {
+          "type": "string",
+          "example": "Proposta aprovada com sucesso."
+        },
+        "creation_date": {
+          "type": "string",
+          "example": "01/04/1991"
+        }
+      }
+    },
+    "BiometricStatus": {
+      "type": "object",
+      "properties": {
+        "status_code": {
+          "type": "number",
+          "example": 19
+        },
+        "status_description": {
+          "type": "string",
+          "example": "BIOMETRIA_PENDENTE"
+        },
+        "creation_date": {
+          "type": "string",
+          "example": "2019-09-03T19:21:49"
+        }
+      }
+    },
+    "ProspectResponse": {
+      "type": "object",
+      "required": [
+        "document",
+        "birth_date",
+        "email",
+        "postal_code",
+        "cell_phone",
+        "user_registration",
+        "channel_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string",
+          "example": "33333333333"
+        },
+        "email": {
+          "type": "string",
+          "example": "sensedia@sensedia.com"
+        },
+        "name": {
+          "type": "string",
+          "example": "Marcelo Martinez",
+          "description": "prospect name"
+        },
+        "birth_date": {
+          "type": "string",
+          "example": "1991-04-01"
+        },
+        "postal_code": {
+          "type": "string",
+          "example": "13133111"
+        },
+        "cell_phone_code": {
+          "type": "string",
+          "example": "19"
+        },
+        "cell_phone": {
+          "type": "string",
+          "example": "19999999999"
+        },
+        "susep_id": {
+          "type": "string",
+          "example": "123"
+        },
+        "user_registration": {
+          "type": "string",
+          "example": "123"
+        },
+        "channel_id": {
+          "type": "string",
+          "example": "123123"
+        },
+        "campaign_id": {
+          "type": "string",
+          "example": 2
+        },
+        "hashcode": {
+          "type": "string",
+          "example": 1255477819
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProspectPermission"
+          }
+        },
+        "product_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductType"
+          }
+        },
+        "metadata": {
+          "$ref": "#/definitions/MetadataTypeRequest"
+        },
+        "prospect_status": {
+          "type": "string",
+          "enum": [
+            "PROCESSO_ENCERRADO",
+            "PENDENTE_PROPOSTA"
+          ]
+        }
+      }
+    },
+    "RecommendationsRequest": {
+      "type": "object",
+      "required": [
+        "indication_name",
+        "cell_phone",
+        "customer_name",
+        "proposal_id"
+      ],
+      "properties": {
+        "indication_name": {
+          "type": "string",
+          "description": "Nome de quem indicou",
+          "example": "Junior da Silva"
+        },
+        "cell_phone": {
+          "type": "integer",
+          "format": "int64",
+          "description": "numero do celular",
+          "example": 19991507878
+        },
+        "email": {
+          "type": "string",
+          "description": "endereço de email",
+          "example": "teste2@teste.com"
+        },
+        "document": {
+          "type": "string",
+          "description": "Documento do indicado",
+          "example": "88822211199"
+        },
+        "customer_name": {
+          "type": "string",
+          "description": "client name",
+          "example": "Cleber da Silva"
+        },
+        "proposal_id": {
+          "type": "string",
+          "description": "proposal id",
+          "example": "fe6a9500-5359-4694-94f9-c6c120577307"
+        }
+      }
+    }
+  }
+}
